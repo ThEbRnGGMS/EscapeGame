@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import random
 import time
 
@@ -28,8 +26,8 @@ def ASCII_Entree():
 def ASCII_Cuisine():
     print("""
 ┌────┬────────────────────────────┬────┐
-│    │GAUCHE     CUISINE    DROITE│    │
-│    │◄─────                ─────►│    │
+│    │          CUISINE     DROITE│    │
+│    │                      ─────►│    │
 │    │   ┌────┬────┐┌────┬────┐   │    │
 │    │   │   •│•   ││   •│•   │   │    │
 │    │   │    │    ││    │    │   │    │
@@ -66,6 +64,28 @@ def ASCII_Salon():
 │  /  ┌──────────────────────────┐  \  │
 │ /   │          TAPIS           │   \ │
 │/    └──────────────────────────┘    \│
+└──────────────────────────────────────┘
+""")
+
+def ASCII_Salle_Jeux():
+    print("""
+┌────┬────────────────────────────┬────┐
+│    │GAUCHE   Salle Jeux   DROITE│    │
+│    │◄─────                ─────►│    │
+│    │                            │    │
+│    │      ┌──────────────┐      │    │
+│    │      │   TOY BOX    │      │    │
+│    │      │   (⊙▂⊙)      │      │    │
+│    │      └──────────────┘      │    │  
+│    │      ┌──────────────┐      │    │
+│    │      │   ÉTAGÈRE    │      │    │
+│    │      │ (⚽ 🧸 🎲)   │      │    │
+│    │      └──────────────┘      │    │
+│    └────────────────────────────┘    │
+│   /                              \   │
+│  /                                \  │
+│ /                                  \ │
+│/                                    \│
 └──────────────────────────────────────┘
 """)
 
@@ -135,7 +155,7 @@ def Entree():
 
         # Se déplacer dans le jeu
         elif action == "GAUCHE":
-            Cuisine()
+            Salle_de_jeux()
 
         elif action == "DROITE":
             Chambre()
@@ -149,7 +169,7 @@ def Cuisine():
     while True:
 
         # Demander au joueur ce qu'il veut faire
-        action = input("Vous êtes dans le salon. Que voulez-vous faire ? (PLACARD, FOUR, GAUCHE, DROITE) : ").upper()
+        action = input("Vous êtes dans le salon. Que voulez-vous faire ? (PLACARD, FOUR, DROITE) : ").upper()
 
         # Interagir avec les objets
         if action == "PLACARD":
@@ -160,10 +180,8 @@ def Cuisine():
             print(">>>>> Vous venez de découvrir un nouveau code !!!! Le code : " + code_cadenas[0] + " _ _ _ a était écris sur une feuille")
 
         # Se déplacer dans le jeu
-        elif action == "GAUCHE":
-            Entree()
         elif action == "DROITE":
-            Salon()
+            Salle_de_jeux()
 
 
         else:
@@ -193,7 +211,7 @@ def Salon():
             Chambre()
 
         elif action == "DROITE":
-            Cuisine()
+            Salle_de_jeux()
 
         else:
             print(">>>>> Action invalide.")
@@ -236,13 +254,38 @@ def Chambre():
         else:
             print(">>>>> Action invalide.")
 
+def Salle_de_jeux():
+    ASCII_Salle_Jeux()
+    global possede_dé
+    while True:
 
+        # Demander au joueur ce qu'il veut faire
+        action = input("Vous êtes dans la salle de jeu. Que voulez-vous faire ? (ETAGERE, TOYBOX, GAUCHE, DROITE) : ").upper()
+
+        # Interagir avec les objets
+        if action == "ETAGERE":
+            possede_dé = True
+            print(">>>>> Vous trouvez un dé !")
+
+        elif action == "TOYBOX":
+            print(">>>>> Vous venez de découvrir un nouveau son de kerchak")
+
+        # Se déplacer dans le jeu
+        elif action == "GAUCHE":
+            Cuisine()
+        elif action == "DROITE":
+            Entree()
+
+
+        else:
+         print(">>>>> Action invalide.")
 
 # Initialisation du jeu
 code_cadenas = str(random.randint(1111, 9999))
 possede_pile_B = False
 possede_pile_A = False
 possede_cle_chambre = False
+possede_dé = False
 
 # Commence le jeu dans la fonction "Entree"
 Entree()
