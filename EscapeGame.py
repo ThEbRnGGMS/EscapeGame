@@ -26,8 +26,8 @@ def ASCII_Entree():
 def ASCII_Cuisine():
     print("""
 ┌────┬────────────────────────────┬────┐
-│    │          CUISINE     DROITE│    │
-│    │                      ─────►│    │
+│    │GAUCHE    CUISINE     DROITE│    │
+│    │◄─────                ─────►│    │
 │    │   ┌────┬────┐┌────┬────┐   │    │
 │    │   │   •│•   ││   •│•   │   │    │
 │    │   │    │    ││    │    │   │    │
@@ -183,6 +183,8 @@ def Cuisine():
         elif action == "DROITE":
             Salle_de_jeux()
 
+        elif action == "GAUCHE":
+            Cuisine()
 
         else:
          print(">>>>> Action invalide.")
@@ -211,7 +213,7 @@ def Salon():
             Chambre()
 
         elif action == "DROITE":
-            Salle_de_jeux()
+            Salon()
 
         else:
             print(">>>>> Action invalide.")
