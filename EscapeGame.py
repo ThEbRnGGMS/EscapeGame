@@ -1,6 +1,43 @@
 import random
 import time
 
+def decompteDe():
+    global code_cadenas
+    dè = [1, 2, 3, 4, 5, 6]  # Liste des valeurs du dé
+    tour_des = 0
+
+    ASCII_Salle_Jeux()
+
+    print(">>>>> Vous jetez les dès !!!!")
+
+    while tour_des < 7:
+
+        choix_des = random.choice(dè)  # Sélection aléatoire d’un nombre
+
+        time.sleep(1)
+
+        print(f"Lancer du dé : {choix_des}   ", end='\r', flush=True)  # Effet de roulage du dé
+        time.sleep(0.5)  # Pause de 0.5 seconde entre chaque affichage
+        tour_des += 1
+
+    print(f"\nRésultat final : {choix_des}")  # Affichage final propre
+
+    if choix_des == 6:
+        print(">>>>> Le chiffre _ _ _ _ " + code_cadenas[4] + " a été gravé sur le dessus de la commode")
+
+        time.sleep(3)
+
+        ASCII_Salle_Jeux_Fini()
+    
+    elif choix_des != 6:
+        print(">>>>> Veuillez encore tourner le dès jusqu'à avoir le chiffre 6.")
+
+        time.sleep(3)
+
+        ASCII_Salle_Jeux()
+
+    time.sleep(1)
+
 def ASCII_Entree():
     print("""
 ┌────┬────────────────────────────┬────┐
@@ -89,6 +126,31 @@ def ASCII_Salle_Jeux():
 └──────────────────────────────────────┘
 """)
 
+def ASCII_Salle_Jeux_Fini():
+    print("""
+┌────┬────────────────────────────┬────┐
+│    │GAUCHE   Salle Jeux   DROITE│    │
+│    │◄─────                ─────►│    │
+│    │                            │    │
+│    │                            │    │
+│    │                            │    │
+│    │      ┌──────────────┐      |    |
+|    |      │   ÉTAGÈRE    │      |    |
+|    |      │ (⚽ 🧸 🎲)   │      |    |
+|    |      └──────────────┘      │    │
+│    │                            │    │  
+│    │                            │    │
+│    │                            │    │
+│    │                            │    │
+│    │                            │    │
+│    └────────────────────────────┘    │
+│   /                              \   │
+│  /                                \  │
+│ /                                  \ │
+│/                                    \│
+└──────────────────────────────────────┘
+""")
+
 def ASCII_Chambre_fermee():
     print("""
 ┌────┬────────────────────────────┬────┐
@@ -143,10 +205,10 @@ def Entree():
 
         # Interagir avec les objets
         if action == "COMMODE":
-            print(">>>>> Le chiffre _ _ _ " + code_cadenas[3] + " a été gravé sur le dessus de la commode")
+            print(">>>>> Le chiffre _ _ " + code_cadenas[2] + " _ _ a été gravé sur le dessus de la commode")
 
         elif action == "PORTE":
-            tentative = input(">>>>> Entrez le code à 4 chiffres : ")
+            tentative = input(">>>>> Entrez le code à 5 chiffres : ")
             if tentative == code_cadenas:
                 print(">>>>> Bravo ! Vous vous êtes échappés !")
                 exit()
@@ -177,7 +239,7 @@ def Cuisine():
             print(">>>>> Vous trouvez une pile !")
 
         elif action == "FOUR":
-            print(">>>>> Vous venez de découvrir un nouveau code !!!! Le code : " + code_cadenas[0] + " _ _ _ a était écris sur une feuille")
+            print(">>>>> Vous venez de découvrir un nouveau code !!!! Le code :  _ _ _ " + code_cadenas[3] + " _ a était écris sur une feuille")
 
         # Se déplacer dans le jeu
         elif action == "DROITE":
@@ -204,7 +266,7 @@ def Salon():
 
         elif action == "TV":
             if possede_pile_A and possede_pile_B:
-                print(">>>>> La télévision s'allume, et on peut lire _ " + code_cadenas[1] + " _ _ sur l'écran")
+                print(">>>>> La télévision s'allume, et on peut lire " + code_cadenas[0] + " _ _ _ _ sur l'écran")
             else:
                 print(">>>>> La TV a besoin de 2 piles pour s'allumer")
 
@@ -236,7 +298,7 @@ def Chambre():
                         possede_pile_A = True
                         print(">>>>> Vous trouvez une pile !")
                     elif action2 == "TABLEAU":
-                        print(">>>>> Vous décrochez le tableau, et voyez qu'un _ _ " + code_cadenas[2] + " _ a été peint sur le mur")
+                        print(">>>>> Vous décrochez le tableau, et voyez qu'un _ " + code_cadenas[1] + " _ _ _ a été peint sur le mur")
                     elif action2 == "GAUCHE":
                         Entree()
                     elif action2 == "DROITE":
@@ -266,11 +328,17 @@ def Salle_de_jeux():
 
         # Interagir avec les objets
         if action == "ETAGERE":
+            ASCII_Salle_Jeux()
             possede_dé = True
             print(">>>>> Vous trouvez un dé !")
 
         elif action == "TOYBOX":
-            print(">>>>> Vous venez de découvrir un nouveau son de kerchak")
+            
+            if possede_dé == True:
+                decompteDe()
+
+            if possede_dé == False:
+                print(">>>>> Vous avez besoin d'un dè pour continuer")
 
         # Se déplacer dans le jeu
         elif action == "GAUCHE":
@@ -283,7 +351,7 @@ def Salle_de_jeux():
          print(">>>>> Action invalide.")
 
 # Initialisation du jeu
-code_cadenas = str(random.randint(1111, 9999))
+code_cadenas = str(random.randint(11111, 99999))
 possede_pile_B = False
 possede_pile_A = False
 possede_cle_chambre = False
