@@ -17,7 +17,7 @@ def decompteDe():
         time.sleep(1)
 
         print(f"Lancer du dé : {choix_des}   ", end='\r', flush=True)  # Effet de roulage du dé
-        time.sleep(0.5)  # Pause de 0.5 seconde entre chaque affichage
+        time.sleep(0.2)  # Pause de 0.2 seconde entre chaque affichage
         tour_des += 1
 
     print(f"\nRésultat final : {choix_des}")  # Affichage final propre
@@ -198,6 +198,7 @@ def ASCII_Chambre_ouverte():
 def Entree():
     ASCII_Entree()
     global code_cadenas
+    global debut
     while True:
 
         # Demander au joueur ce qu'il veut faire
@@ -211,6 +212,11 @@ def Entree():
             tentative = input(">>>>> Entrez le code à 5 chiffres : ")
             if tentative == code_cadenas:
                 print(">>>>> Bravo ! Vous vous êtes échappés !")
+                fin = time.time()
+
+                resultat = fin - debut
+
+                print(">>>>> Vous avez fini le jeux en ", resultat, " seconde.")
                 exit()
             else:
                 print(">>>>> Mauvais code.")
@@ -356,6 +362,7 @@ possede_pile_B = False
 possede_pile_A = False
 possede_cle_chambre = False
 possede_dé = False
+debut = time.time()
 
 # Commence le jeu dans la fonction "Entree"
 Entree()
